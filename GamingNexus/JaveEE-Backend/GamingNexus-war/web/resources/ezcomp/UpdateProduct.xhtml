@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:form id="formUpdateProduct">
+            <p:dialog id="dialogUpdateProduct"  widgetVar="dialogUpdateProduct" 
+                      header="Update Product Detail" closable="true" appendTo = "@(body)">
+                <p:panelGrid >
+                    <p:row >
+                        <p:column >
+                            <h:outputText value="Product ID" />
+                        </p:column>
+                        <p:column >
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.
+                                                   productToViewInDetails.productId}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Name" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.name}">
+                                <f:validateLength minimum="1" maximum="100" >
+                                    <p:ajax event="keyup" update="nameValidation" process="@this"/> 
+
+                                </f:validateLength>
+                            </p:inputText>
+                        </p:column>
+                     <p:column>
+                            <p:messages id="nameValidation" for ="name" />
+                        </p:column>  
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Description" />
+                        </p:column>
+                        <p:column>
+                            <p:inputTextarea id = "descriptionUpdate" rows="7" cols="150" counter="displayUpdate" 
+                                             maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.description}" />
+                            <br/>
+                            <h:outputText id="displayUpdate" />   
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="computerRequirements" value="Computer Requirements" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputTextarea id = "computerRequirements" rows="5" cols="110" counter="display2" maxlength="1000" 
+                                             counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyProductManagedBean.newOtherSoftware.computerRequirements}" />
+                            <br />
+                            <h:outputText id="display2" />   
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="computerRequirements" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Price" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="price" value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.price}" 
+                                         required="true" requiredMessage="Price is required">
+
+                                <f:validateDoubleRange minimum="0.00">
+                                    <p:ajax event="keyup" update="priceValidation" process="@this"/> 
+
+                                </f:validateDoubleRange>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:message id="priceValidation" for="price"/>
+
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Average Ratings" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.
+                                                   productToViewInDetails.averageRating}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Category" />
+                        </p:column>                                                   
+
+                        <p:column>
+                            <p:selectOneMenu id="category" style="width:125px" 
+                                             value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.category}" 
+                                             converter="omnifaces.SelectItemsConverter" required="true" 
+                                             requiredMessage="Category selection is required">
+                                <f:selectItems  value="#{companyProductManagedBean.categories}" 
+                                                var="category" 
+                                                itemLabel="#{category.name}" 
+                                                itemValue="#{category}">
+                                </f:selectItems>/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column>
+                            <p:message for="category"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Tags" />
+                        </p:column>
+                        <p:column>
+                            <p:selectCheckboxMenu id="tag"  label="tag" 
+                                                  value="#{companyProductManagedBean.tagIdsUpdate}"
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px" 
+                                                  >
+                                <f:selectItems  value="#{companyProductManagedBean.tags}" var="tag" 
+                                                itemLabel="#{tag.tagName}" itemValue="#{tag.tagId}">
+                                </f:selectItems>
+                            </p:selectCheckboxMenu>                         
+                        </p:column>
+                        <p:column>
+                            <p:message for = "tag"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Forum" />
+                        </p:column>
+                        <p:column headerText="Forum link">
+                            <h:outputText value="not implemented" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Game Pictures" />
+                        </p:column>
+                        <p:column >
+                            <p:inputText id="gamePicturesURLs" value="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails.gamePicturesURLs}" />
+                        </p:column>
+                        <p:column >
+                            <p:message for="gamePicturesURLs"/>
+                        </p:column>
+                    </p:row> 
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Game Videos" />
+                        </p:column>
+                        <p:column >
+                            <p:inputText id="gameTrailersURLs" value="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails.gameTrailersURLS}" />
+                        </p:column>
+                        <p:column>
+                            <p:message for ="gameTrailersURLs"/>
+                        </p:column>
+                    </p:row> 
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Parent Advisory" />
+                        </p:column>
+                        <p:column >
+                            <p:selectOneMenu id="parentAdvisory" style="width:125px"
+                                             value="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails.parentAdvisory}" 
+                                             required="true" requiredMessage="Parent Advisory is required">
+                                <f:selectItem itemValue="Above 18" itemLabel="Above 18"/>
+                                <f:selectItem itemValue="None" itemLabel="None"/>
+
+                            </p:selectOneMenu>  
+                        </p:column>
+                        <p:column>
+                            <p:message for="parentAdvisory"/>
+                        </p:column>
+                    </p:row> 
+
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Manufacturing Country" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <p:inputText id = "manufacturingCountry" 
+                                         value="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails.manufacturingCountry}"         >
+                                <f:validateLength minimum="0" maximum="300">
+                                    <p:ajax event="keyup" update="manufacturingCountryValidation" process="@this"/> 
+
+                                </f:validateLength>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:message id="manufacturingCountryValidation" for="manufacturingCountry"/>
+                        </p:column>
+
+                    </p:row> 
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Technical Specification" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <p:inputTextarea id = "technicalSpecification" rows="5" cols="30" counter="technicalSpecificationDisplay" 
+                                             maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails.technicalspecification}" />
+                            <br/>
+                            <h:outputText id="technicalSpecificationDisplay" />
+
+                        </p:column>
+                        <p:column>
+                            <p:message for="technicalSpecification"/>
+                        </p:column>
+                    </p:row> 
+
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Warranty Description" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <p:inputTextarea id = "warrantyDescription" rows="5" cols="30" counter="WarrantDescriptionDisplay" 
+                                             maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails.warrantyDescription}" />
+                            <br/>
+                            <h:outputText id="WarrantDescriptionDisplay" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="warrantyDescription"/>
+                        </p:column>
+                    </p:row> 
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton type="reset" value="Clear" update="@form formAllProducts:dataTableAllProducts" />&nbsp;b
+                            <p:commandButton  id="updateProductButton" value="Update" 
+                                              update="@form formAllProducts:dataTableAllProducts" 
+                                              actionListener="#{companyProductManagedBean.updateProduct}"    
+                                              />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+
+        </h:form>
+
+    </cc:implementation>
+</html>
+

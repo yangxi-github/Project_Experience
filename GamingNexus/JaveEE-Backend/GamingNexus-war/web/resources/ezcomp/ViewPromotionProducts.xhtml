@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:form id="formViewPromotionProducts">
+            <p:dialog id="dialogViewPromotionProducts"  widgetVar="dialogViewPromotionProducts" 
+                      header="View Promotion's Products " closable="true" >
+                <p:panelGrid>
+
+                    <p:dataTable id="dataTableAllPromotionProducts" widgetVar="dataTableAllPromotionProducts"
+                                 value="#{companyPromotionManagedBean.promotionsProductsToBeViewed}" 
+                                 var="product" rowKey="#{product.productId}" rowIndexVar="row"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">             
+
+                        <p:column headerText="Product ID" sortBy="#{product.productId}" filterBy="#{product.productId}" 
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{product.productId}" />
+                        </p:column>
+                        <p:column headerText="Name" sortBy="#{product.name}" filterBy="#{product.name}" filterMatchMode="contains">
+                            <h:outputText value="#{product.name}" />
+                        </p:column>
+                        <p:column headerText="Price" sortBy="#{product.price}" filterBy="#{product.price}" filterMatchMode="contains">
+                            <h:outputText value="#{product.price}" />
+                        </p:column>
+                        <p:column headerText="Category" sortBy="#{product.category}" filterBy="#{product.category}" 
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{product.category.name}" />
+                        </p:column>
+                        <p:column headerText="Tags" sortBy="#{product.tags}" filterBy="#{product.tags}"  filterMatchMode="contains">
+
+                            <p:dataList value="#{product.tags}" var="tag" type="ordered" >
+                                #{tag.tagName}  
+                            </p:dataList>
+                        </p:column>
+                        <p:column headerText="Actions">
+
+                            <p:commandButton icon="ui-icon-document"   update="ccViewProductDetails:formViewProductDetails"
+                                             oncomplete="PF('dialogViewProductDetails').show()">
+                                <f:setPropertyActionListener value="#{product}" 
+                                                             target="#{companyProductManagedBean.viewProductManagedBean.
+                                                                       productToViewInDetails}"/>
+                            </p:commandButton>
+                        </p:column>
+
+
+
+                    </p:dataTable>
+
+                </p:panelGrid>
+
+
+
+
+            </p:dialog>
+
+
+        </h:form>
+
+    </cc:implementation>
+</html>
+

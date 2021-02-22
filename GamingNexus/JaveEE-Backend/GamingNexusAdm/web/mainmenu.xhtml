@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <section id="mainmenu" class="mainmenu">
+        <h3>Main Menu</h3>
+        <nav>
+            <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+            <h:form>
+                    
+                <p:menu style="width:200px;">
+
+                    <p:submenu label="System">
+                        <p:menuitem value="Home" outcome="/home" icon="pi pi-home" />
+                        <p:menuitem value="Logout" actionListener="#{systemAdminLoginManagedBean.logout}" icon="pi pi-sign-out" rendered="#{sessionScope.isLogin == true}" />
+                    </p:submenu>
+                    
+                    <p:submenu label="System Administration" rendered="#{sessionScope.isLogin == true}">
+                        <p:menuitem value="AdminManagement" outcome="/systemAdminOpeartion/systemAdminManagement.xhtml" icon="pi pi-user" />
+                        <p:menuitem value="ProductManagement" outcome="/systemAdminOpeartion/productManagement.xhtml" icon="pi pi-list" />
+                        <p:menuitem value="ScheduleManagement" outcome="/systemAdminOpeartion/scheduleManagement.xhtml" icon="pi pi-calendar" />
+                        <p:menuitem value="View Sales Record" outcome="/systemAdminOpeartion/salesManagement.xhtml" icon="pi pi-dollar" />
+                        <p:menuitem value="Revenue Chart" outcome="/systemAdminOpeartion/revenueManagement.xhtml" icon="pi pi-chart-bar" />
+                        <p:menuitem value="CategoryManagement" outcome="/systemAdminOpeartion/categoryManagement.xhtml" icon="pi pi-sitemap" />
+                        <p:menuitem value="Tag Management" outcome="/systemAdminOpeartion/tagManagement.xhtml" icon="pi pi-tags" />
+                    </p:submenu>                        
+
+                </p:menu>
+
+            </h:form>
+        </nav>
+            
+    </section>
+
+</ui:composition>
+

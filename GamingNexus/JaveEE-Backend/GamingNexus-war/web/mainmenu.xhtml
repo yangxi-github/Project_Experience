@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <section id="mainmenu" class="mainmenu">
+        <h3>Main Menu</h3>
+        <nav>
+            <h:form>
+                    
+                <p:menu style="width:200px;">
+
+                    <p:submenu label="System">
+                        <p:menuitem value="Home" outcome="/index" icon="fa fa-home" />
+                        <p:menuitem value="Logout" actionListener="#{loginManagedBean.logout}" icon="fa fa-sign-out" rendered="#{sessionScope.isLogin == true}" />
+                    </p:submenu>
+                  
+                    <p:submenu label="System Administration" rendered="#{sessionScope.systemAdmin != null}">
+                        <p:menuitem value="System Admin Management" outcome="/systemAdministration/systemAdminManagement.xhtml" icon="fa fa-users" />
+                        
+                        <p:submenu label="Product Management" rendered="#{sessionScope.systemAdmin != null}">
+                            <p:menuitem value="Game Management" outcome="/productManagement/gameManagement.xhtml"  icon="fas fa-gamepad"/>
+                        </p:submenu>
+                        
+                    </p:submenu>                        
+
+                    <p:submenu label="Company management" rendered="#{sessionScope.company != null}">
+                        <p:menuitem value="Product Management" outcome="/companyManagement/companyProductManagement.xhtml" icon="fa fa-users" />
+                                               
+                        <p:menuitem value="Promotion Management" outcome="/companyManagement/companyPromotionManagement.xhtml" 
+                                    
+                                    icon="fa fa-users" />   
+                    </p:submenu>
+                    
+                </p:menu>
+
+            </h:form>
+        </nav>
+            
+    </section>
+
+</ui:composition>
+

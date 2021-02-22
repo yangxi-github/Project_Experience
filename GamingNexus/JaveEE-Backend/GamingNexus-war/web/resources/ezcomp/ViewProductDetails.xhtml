@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:form id="formViewProductDetails">
+            <p:dialog id="dialogViewProductDetails"  widgetVar="dialogViewProductDetails" header="View Product Detail" closable="true" appendTo = "@(body)">
+                    <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Product ID" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.productId}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Name" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.name}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText  value="Description" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText style="display:block; width:1000px; .someClass {word-wrap: break-word;}" value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.description}"/>
+                        </p:column>
+                    </p:row>
+                    
+                    
+                     <p:row>
+                        <p:column>
+                            <h:outputText value="Computer Requirements" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText style="display:block; width:1000px; .someClass {word-wrap: break-word;}"
+                                          
+                                          value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.computerRequirements}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Price" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.price}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Average Ratings" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.averageRating}" />
+                        </p:column>
+                        
+                        
+                        
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Category" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.productToViewInDetails.category.name}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Tags" />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{companyProductManagedBean.viewProductManagedBean.
+                                                 productToViewInDetails.tags}" var="tag" type="ordered" >
+                                        #{tag.tagName}  
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Forum" />
+                        </p:column>
+                        <p:column headerText="Forum link">
+                            <h:outputText value="not implemented" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Game Pictures" />
+                        </p:column>
+                        <p:column >
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails.gamePicturesURLs}" />
+                        </p:column>
+                    </p:row> 
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Game Videos" />
+                        </p:column>
+                        <p:column >
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails.gameTrailersURLS}" />
+                        </p:column>
+                    </p:row> 
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Parent Advisory" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.gameToViewInDetails.parentAdvisory}"/>
+                        </p:column>
+                    </p:row> 
+
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Manufactoring Country" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <h:outputText value="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails.manufactoringCountry}" />
+                        </p:column>
+                    </p:row> 
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Technical Specification" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            #{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails.technicalspecification}
+                        </p:column>
+                    </p:row> 
+
+
+                    <p:row rendered="#{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails != null}">
+                        <p:column>
+                            <h:outputText value="Warrenty Description" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            #{companyProductManagedBean.viewProductManagedBean.hardwareToViewInDetails.warrentyDescription}
+                        </p:column>
+                    </p:row> 
+                </p:panelGrid>
+            </p:dialog>
+
+        </h:form>
+
+    </cc:implementation>
+</html>
+

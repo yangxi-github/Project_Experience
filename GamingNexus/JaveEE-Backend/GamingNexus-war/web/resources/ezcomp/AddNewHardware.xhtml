@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="/template/defaultTemplate.xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <!-- THIS IS FOR COMPANY USE ONLY-->
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:form id="formAddNewHardware">
+
+            <p:dialog id="dialogAddNewHardware" widgetVar="dialogAddNewHardware" header="Add New Hardware" closable="true" appendTo = "@(body)">
+
+                <p:messages id="messagesAddNewGame" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="name" value="name" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{companyProductManagedBean.newHardware.name}" placeholder="name"
+                                         required="true" requiredMessage="Name is required" >
+                                <f:validateLength minimum="1" maximum="100" for="name">
+                                    <p:ajax event="keyup" update="nameValidation" process="@this"/> 
+                                </f:validateLength>
+
+
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:messages id="nameValidation" for ="name" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="description" value="description" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputTextarea id = "description" rows="5" cols="30" counter="display" 
+                                             maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyProductManagedBean.newHardware.description}" >
+                                <p:ajax event="keyup" update="nameValidation" process="@this"/> 
+                            </p:inputTextarea>
+                            <br />
+                            <h:outputText id="display" />   
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="description" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="computerRequirements" value="Computer Requirements" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputTextarea id = "computerRequirements" rows="5" cols="30" counter="display2" maxlength="1000" 
+                                             counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyProductManagedBean.newHardware.computerRequirements}" >
+                                <p:ajax event="keyup" update="computerRequirementsValidation" process="@this"/> 
+
+                            </p:inputTextarea>
+                            <br />
+                            <h:outputText id="display2" />   
+                        </p:column>
+                        <p:column>
+                            <p:messages id="computerRequirementsValidation" for ="computerRequirements" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="price" value="price" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="price"  placeholder="price" required="true" requiredMessage="Price is required" 
+                                         value="#{companyProductManagedBean.newHardware.price}" >
+                                <f:validateDoubleRange minimum="0.00">
+                                    <p:ajax event="keyup" update="priceValidation" process="@this"/> 
+
+                                </f:validateDoubleRange>
+                            </p:inputText> />
+                        </p:column>
+                        <p:column>
+                            <p:messages id="priceValidation" for ="price" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="tag" value="tag" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:selectCheckboxMenu id="tag"  label="tag" value="#{companyProductManagedBean.newHardware.tags}" 
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                <f:selectItems  value="#{companyProductManagedBean.tags}" var="tag" 
+                                                itemLabel="#{tag.tagName}" itemValue="#{tag}">
+                                </f:selectItems>
+                            </p:selectCheckboxMenu>
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="tag" />
+                        </p:column>     
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="category" value="category" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="category" style="width:125px" value="#{companyProductManagedBean.newHardware.category}" 
+                                             converter="omnifaces.SelectItemsConverter" required="true" 
+                                             requiredMessage="Category selection is required">
+                                <p:ajax event="keyup" update="categoryValidation" process="@this"/> 
+
+                                <f:selectItems  value="#{companyProductManagedBean.categories}" 
+                                                var="category" itemLabel="#{category.name}" 
+                                                itemValue="#{category}">
+                                </f:selectItems>
+                            </p:selectOneMenu>                             
+                        </p:column>
+                        <p:column>
+                            <p:messages id="categoryValidation" for ="category" />
+                        </p:column>     
+                    </p:row>
+
+
+
+                    <p:row >
+                        <p:column>
+                            <h:outputText value="Manufacturing Country" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <p:inputText id="manufacturingCountry" 
+                                         value="#{companyProductManagedBean.newHardware.manufacturingCountry}" >
+                                <f:validateLength maximum="100">
+                                    <p:ajax event="keyup" update="manufacturingValidation" process="@this"/> 
+
+                                </f:validateLength>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:message id="manufacturingValidation" for="manufacturingCountry"/>
+                        </p:column>
+                    </p:row> 
+
+                    <p:row >
+                        <p:column>
+                            <h:outputText value="Technical Specification" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <p:inputTextarea  id="techicalSpecification" rows="5" cols="30" counter="technicalSpecificationAddDisplay" 
+                                              maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                              value="#{companyProductManagedBean.newHardware.technicalspecification}" >
+                                <p:ajax event="keyup" update="technicalSpecificaitonValidation" process="@this"/> 
+
+                            </p:inputTextarea>
+                            <br/>
+                            <h:outputText id="technicalSpecificationAddDisplay" />
+
+                        </p:column>
+                        <p:column>
+                            <p:message id="technicalSpecificaitonValidation" for="techicalSpecification"/>
+                        </p:column>
+                    </p:row> 
+
+
+                    <p:row >
+                        <p:column>
+                            <h:outputText value="Warranty Description" 
+                                          />
+                        </p:column>
+                        <p:column >
+                            <p:inputTextarea  id="warrantyDescription" rows="5" cols="30" counter="WarrantDescriptionAddDisplay" 
+                                              maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                              value="#{companyProductManagedBean.newHardware.warrantyDescription}" >
+                                <p:ajax event="keyup" update="warrantyDescriptionValidation" process="@this"/> 
+
+                            </p:inputTextarea>
+                            <br/>
+                            <h:outputText id="WarrantDescriptionAddDisplay" />
+                        </p:column>
+                        <p:column>
+                            <p:message id="warrantyDescriptionValidation" for="warrantyDescription"/>
+                        </p:column>
+                    </p:row> 
+
+
+
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton type="reset" value="Clear" update="@form formAllProducts:dataTableAllProducts" />&nbsp;
+                            <p:commandButton id="AddHardwareButton" value="Add" update="@form formAllProducts:dataTableAllProducts" 
+                                             actionListener="#{companyProductManagedBean.createNewProduct}"    
+                                             />
+                        </p:column>
+                    </p:row>
+
+
+
+
+
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+    </cc:implementation>
+</html>

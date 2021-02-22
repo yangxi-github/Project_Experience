@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="/template/defaultTemplate.xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <!-- THIS IS FOR COMPANY USE ONLY-->
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:form id="formUpdatePromotion">
+            <p:dialog id="dialogUpdatePromotion" widgetVar="dialogUpdatePromotion" header="Update New Promotion" closable="true" >
+                <p:messages id="messagesUpdatePromotion" redisplay="false" />
+                <p:panelGrid >
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="name" value="name" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{companyPromotionManagedBean.promotionToBeUpdated.name}" placeholder="name" 
+                                         required="true" requiredMessage="Name is required" >
+                                <f:validateLength minimum="1" maximum="100">
+                                    <p:ajax event="keyup" update="nameValidation" process="@this"/> 
+
+                                </f:validateLength>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:messages id="nameValidation" for ="name" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="description" value="description" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputTextarea id = "description" rows="5" cols="30" counter="display" 
+                                             maxlength="1000" counterTemplate="{0} characters remaining." autoResize="true" 
+                                             value="#{companyPromotionManagedBean.promotionToBeUpdated.description}" />
+                            <br />
+                            <h:outputText id="display" />   
+                        </p:column>
+                        <p:column>
+                            <p:messages  for ="description" />
+                        </p:column>     
+                    </p:row>
+
+
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="percentageDiscount" value="percentageDiscount" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="percentageDiscount"  placeholder="percentageDiscount" required="true" requiredMessage="Percentage discount is required" 
+                                         value="#{companyPromotionManagedBean.promotionToBeUpdated.percentageDiscount}" >
+                                <f:validateDoubleRange minimum="0.00" maximum="100.00">
+                                    <p:ajax event="keyup" update="percentageDiscountValidation" process="@this"/> 
+                                </f:validateDoubleRange>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:messages id="percentageDiscountValidation" for ="percentageDiscount" />
+                        </p:column>     
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="dollarDiscount" value="dollarDiscount" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="dollarDiscount"  placeholder="dollarDiscount" required="true" requiredMessage="dollar discount is required"
+                                         value="#{companyPromotionManagedBean.promotionToBeUpdated.dollarDiscount}" >
+                                <f:validateDoubleRange minimum="0.00">
+                                    <p:ajax event="keyup" update="dollarDiscountValidation" process="@this"/> 
+                                </f:validateDoubleRange>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:messages id="dollarDiscountValidation" for ="dollarDiscount" />
+                        </p:column>     
+                    </p:row>
+
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="startDate" value="startDate" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:datePicker id="startDate" value="#{companyPromotionManagedBean.startDateToBeUpdated}" 
+                                          showTime="true" 
+                                          required="true" requiredMessage="start date is required" 
+                                          
+                                          maxdate="#{companyPromotionManagedBean.endDateToBeUpdated}">
+                                <p:ajax update="startDateValidation " process="@this"/>
+                            </p:datePicker>
+                        </p:column>
+                        <p:column>
+                            <p:messages id="startDateValidation" for ="startDate" />
+                        </p:column>     
+                    </p:row>
+
+                     <p:row>
+                        <p:column>
+                            <p:outputLabel for="endDate" value="endDate" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:datePicker id="endDate" value="#{companyPromotionManagedBean.endDateToBeUpdated}" 
+                                          showTime="true" 
+                                          required="true" requiredMessage="start date is required" 
+                                          mindate="#{companyPromotionManagedBean.startDateToBeUpdated}">
+                                <p:ajax update="endDateValidation " process="@this"/>
+                            </p:datePicker>
+                        </p:column>
+                        <p:column>
+                            <p:messages id="endDateValidation" for ="endDate" />
+                        </p:column>     
+                    </p:row>
+
+
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="products" value="Products" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:selectCheckboxMenu id="products"  label="products" 
+                                                  value="#{companyPromotionManagedBean.productsToBeUpdated}" 
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                <f:selectItems  value="#{companyPromotionManagedBean.company.products}"
+                                                var="product" itemLabel="#{product.name}" itemValue="#{product}">
+                                </f:selectItems>
+                            </p:selectCheckboxMenu>
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="products" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton type="reset" value="Clear" update="@form formAllPromotions:dataTableAllPromotions" />&nbsp;
+                            <p:commandButton  id="UpdatePromotionButton" value="Add" update="@form formAllPromotions:dataTableAllPromotions" 
+                                              actionListener="#{companyPromotionManagedBean.updatePromotion}"    
+                                              />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+    </cc:implementation>
+</html>

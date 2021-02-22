@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/defaultTemplate.xhtml"
+                xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+
+        <ez:Breadcrumb pageName="revenueManagement" />
+
+        <div>
+            <h3>Revenue Management</h3>
+
+
+            <h:form id="formRevenueByMonth">
+
+                <h:dataTable value="#{salesManagedBean.keyList}" var="key"> 
+                    <h:column> 
+                        Month: #{key}
+                    </h:column> 
+                    <h:column> 
+                        Revenue: #{salesManagedBean.revenueByMonth[key]}
+                    </h:column> 
+                </h:dataTable>
+
+            </h:form>
+
+            <br></br>
+            <p:chart type="line" model="#{revenueLineChart.lineModel}" style="height:600px; width: 1400px"/>
+
+            <!--
+                        <c:forEach items="#{salesManagedBean.revenueByMonth}" var="entry">
+                            <li>Date: #{entry.key}, Revenue: #{entry.value}</li>
+                        </c:forEach>
+            -->
+        </div>
+
+    </ui:define>
+
+</ui:composition>

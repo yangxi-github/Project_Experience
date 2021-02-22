@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="/template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="Create" onclick="PF('dialogCreateNewSystemAdmin').show()" icon="pi pi-user-plus" />
+
+            </p:menubar>
+            <br/>
+        </h:form>
+
+        <h:form id="formAllSystemAdmins">
+
+            <p:messages id="messages" redisplay="false" closable="true" />
+
+            <p:dataTable id="dataTableAllSystemAdmins" widgetVar="dataTableAllSystemAdmins" value="#{systemAdminManagementManagedBean.systemAdmins}" var="systemAdmin" rowKey="#{systemAdmin.userId}" rowIndexVar="row"
+                         filteredValue="#{systemAdminManagementManagedBean.filteredSystemAdmins}"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">             
+
+                <p:column headerText="UserID" sortBy="#{systemAdmin.userId}" filterBy="#{systemAdmin.userId}" filterMatchMode="contains">
+                    <h:outputText value="#{systemAdmin.userId}" />
+                </p:column>
+
+
+
+                <p:column headerText="Username" sortBy="#{systemAdmin.username}" filterBy="#{systemAdmin.username}" filterMatchMode="contains">
+                    <h:outputText value="#{systemAdmin.username}" />
+                </p:column>
+
+
+                <p:column headerText="Address" sortBy="#{systemAdmin.address}" filterBy="#{systemAdmin.address}" filterMatchMode="contains">
+                    <h:outputText value="#{systemAdmin.address}" />
+                </p:column>
+
+                <p:column headerText="Email" sortBy="#{systemAdmin.email}" filterBy="#{systemAdmin.email}" filterMatchMode="contains">
+                    <h:outputText value="#{systemAdmin.email}" />
+                </p:column>
+
+
+                <p:column headerText="Country" sortBy="#{systemAdmin.country}" filterBy="#{systemAdmin.country}" filterMatchMode="contains">
+                    <h:outputText value="#{systemAdmin.country}" />
+                </p:column>
+
+
+                <p:column headerText="Last Online" sortBy="#{systemAdmin.lastOnline}" filterBy="#{systemAdmin.lastOnline}" filterMatchMode="contains">
+                    <h:outputText value="#{systemAdmin.lastOnline}" />
+                </p:column>
+
+                <p:column headerText="Action">       
+
+                    <p:commandButton update="ccViewSystemAdmin:formViewSystemAdmin" oncomplete="PF('dialogViewSystemAdmin').show()" icon="pi pi-info-circle" title="View"> 
+                        <f:setPropertyActionListener value="#{systemAdmin}" target="#{systemAdminManagementManagedBean.viewSystemAdminManagedBean.systemAdminToView}" />
+                    </p:commandButton>
+
+                    <p:commandButton icon="pi pi-trash" actionListener="#{systemAdminManagementManagedBean.deleteSystemAdmin}" update="formAllSystemAdmins:dataTableAllSystemAdmins" style="margin-left: 30px; margin-right: 30px;">
+                        <f:attribute name="systemAdminToDelete" value="#{systemAdmin}" />
+                        <p:confirm header="Confirmation" message="Are you sure you want to delete #{systemAdmin.username}?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                    <p:commandButton actionListener="#{systemAdminManagementManagedBean.doUpdateSystemAdmin}" rendered="#{sessionScope.currentSystemAdmin.username eq systemAdmin.username}"  
+                                     update="formUpdateSystemAdmin" 
+                                     oncomplete="PF('dialogUpdateSystemAdmin').show()" icon="pi pi-cog" title="Update">
+                        <f:attribute name="systemAdminToUpdate" value="#{systemAdmin}" />
+                    </p:commandButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </h:form>
+
+
+        <h:form id="formCreateNewSystemAdmin">
+
+            <p:dialog id="dialogCreateNewSystemAdmin" widgetVar="dialogCreateNewSystemAdmin" header="Create New System Admin" closable="true">
+
+                <p:messages id="messagesCreateNewSystemAdmin" redisplay="false" />
+
+                <p:panelGrid>
+
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="username" value="Username" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="username" value="#{systemAdminManagementManagedBean.newSystemAdmin.username}" placeholder="Username" required="true" requiredMessage="Username is required" />
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="username" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="password" value="Password" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="password" value="#{systemAdminManagementManagedBean.newSystemAdmin.password}" placeholder="Password" required="true" requiredMessage="Password is required" />
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="password" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="phoneNumber" value="phoneNumber" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="phoneNumber" value="#{systemAdminManagementManagedBean.newSystemAdmin.phoneNumber}" placeholder="phoneNumber" />
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="phoneNumber" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="address" value="address" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="address" value="#{systemAdminManagementManagedBean.newSystemAdmin.address}" placeholder="address" />
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="address" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="email" value="email" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="email" value="#{systemAdminManagementManagedBean.newSystemAdmin.email}" placeholder="email" />
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="email" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="country" value="country" style="font-weight: bold;"/>               
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="country" value="#{systemAdminManagementManagedBean.newSystemAdmin.country}" placeholder="country" />
+                        </p:column>
+                        <p:column>
+                            <p:messages for ="country" />
+                        </p:column>     
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New System Admin" update="@form formAllSystemAdmins:dataTableAllSystemAdmins" actionListener="#{systemAdminManagementManagedBean.createNewSystemAdmin}" oncomplete="PF('dialogCreateNewSystemAdmin').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+        <!--form of View System admin -->
+
+        <ez:ViewSystemAdmin id="ccViewSystemAdmin"/>
+
+        <h:form id="formUpdateSystemAdmin">
+
+            <p:dialog id="dialogUpdateSystemAdmin" widgetVar="dialogUpdateSystemAdmin" header="Update SystemAdmin" closable="true">
+
+                <p:messages id="messagesUpdateSystemAdmin" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="System Adim ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.userId}" />
+                        </p:column>
+                        <p:column>
+                            &nbsp;
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Username: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.username}" />
+                        </p:column>
+                        <p:column>
+                            &nbsp;
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="phonenumber" value="Phone Number " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="phonenumber" value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.phoneNumber}" placeholder="1234567" required="true" requiredMessage="PhoneNumber is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="phonenumber" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="email" value="Email " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="email" value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.email}" placeholder="#{sessionScope.currentSystemAdmin.email}" required="true" requiredMessage="Email is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="email" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="country" value="Country " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="country" value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.country}" placeholder="#{sessionScope.currentSystemAdmin.country}" required="true" requiredMessage="country is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="country" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="address" value="Address " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="address" value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.address}" placeholder="#{sessionScope.currentSystemAdmin.address}" required="true" requiredMessage="Address is required"/>
+                        </p:column>
+                        <p:column>
+                            <p:message for="address" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="profileurl" value="Profile Picture URL " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="profileurl" value="#{systemAdminManagementManagedBean.selectedSystemAdminToUpdate.profilePictureURL}" placeholder="#{sessionScope.currentSystemAdmin.profilePictureURL}" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="profileurl" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="password" value="Password " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="password"  value="#{systemAdminManagementManagedBean.updatedPassword}" placeholder="password" />
+
+                        </p:column>
+                        <p:column>
+                            <p:message for="password" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+
+                <p:commandButton  style="" value="Update SystemAdmin" update="@form formAllSystemAdmins:dataTableAllSystemAdmins" actionListener="#{systemAdminManagementManagedBean.updateSystemAdmin}" oncomplete="PF('dialogUpdateSystemAdmin').show();" />
+
+
+            </p:dialog>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

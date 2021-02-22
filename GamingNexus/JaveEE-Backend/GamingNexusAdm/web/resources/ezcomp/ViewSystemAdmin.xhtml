@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <h:form id="formViewSystemAdmin">
+            <p:dialog id="dialogViewSystemAdmin" widgetVar="dialogViewSystemAdmin" header="View System Admin" closable="true">
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="System Admin ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewSystemAdminManagedBean.systemAdminToView.userId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="User Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewSystemAdminManagedBean.systemAdminToView.username}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Profile Picture " />
+                        </p:column>
+
+                        <p:column rendered="#{viewSystemAdminManagedBean.systemAdminToView.profilePictureURL != null }">
+                            <h:graphicImage value="#{viewSystemAdminManagedBean.systemAdminToView.profilePictureURL}" />
+
+                        </p:column>
+                        <p:column rendered="#{viewSystemAdminManagedBean.systemAdminToView.profilePictureURL == null}">
+                            <h:graphicImage  
+                                value = "http://www.tutorialspoint.com/images/jsf-mini-logo.png"/>                         
+                        </p:column>
+                    </p:row>
+
+
+
+                </p:panelGrid>
+
+
+            </p:dialog>
+        </h:form>
+
+
+
+    </cc:implementation>
+</html>
