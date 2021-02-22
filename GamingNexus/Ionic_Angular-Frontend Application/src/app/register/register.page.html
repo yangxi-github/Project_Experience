@@ -1,0 +1,156 @@
+<ion-header>
+	<ion-toolbar>
+
+		<ion-buttons slot="start">
+			<ion-button (click)="goBack()" color="dark">
+				<ion-icon slot="icon-only" name="close"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+
+		<ion-title>
+			Register As A New User
+		</ion-title>
+
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+	<div *ngIf="infoMessage">
+		{{infoMessage}}
+	</div>
+
+	<div *ngIf="errorMessage">
+		{{errorMessage}}
+	</div>
+
+	<form #customerRegistrationForm="ngForm" (ngSubmit)="create(customerRegistrationForm)">
+
+		<div style="color: blue;">
+
+			<div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">
+				<div *ngIf="inemail.errors.required">
+					Email is required.
+				</div>
+				<div *ngIf="inemail.errors.pattern">
+					Email must be in a correct format.
+				</div>
+			</div>
+
+			<div *ngIf="inusername.invalid && (inusername.dirty || inusername.touched || submitted)" class="errorText">
+				<div *ngIf="inusername.errors.required">
+					Username is required.
+				</div>
+				<div *ngIf="inusername.errors.minlength">
+					Username must be at least 4 characters long.
+				</div>
+				<div *ngIf="inusername.errors.maxlength">
+					Username cannot exceed 32 characters.
+				</div>
+			</div>
+
+			<div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
+				<div *ngIf="inpassword.errors.required">
+					Password is required.
+				</div>
+				<div *ngIf="inpassword.errors.minlength">
+					Password must be at least 4 characters long.
+				</div>
+				<div *ngIf="inpassword.errors.maxlength">
+					Password cannot exceed 32 characters.
+				</div>
+			</div>
+
+			<div *ngIf="inphoneNumber.invalid && (inphoneNumber.dirty || inphoneNumber.touched || submitted)"
+				class="errorText">
+				<div *ngIf="inphoneNumber.errors.required">
+					PhoneNumber is required.
+				</div>
+				<div *ngIf="inphoneNumber.errors.pattern">
+					PhoneNumber must be 8 - 11 digits .
+				</div>
+				<div *ngIf="inphoneNumber.errors.maxlength">
+					PhoneNumber cannot exceed 11 digit.
+				</div>
+			</div>
+
+			<div *ngIf="loginErrorMessage" class="errorText">
+				{{loginErrorMessage}}
+			</div>
+
+		</div>
+
+		<ion-list class="register_list">
+
+
+			<ion-item>
+				<ion-label position="floating">Email <ion-text color="danger">*</ion-text> </ion-label>
+				<ion-input clearInput type="email" id="email" name="email" [(ngModel)]="newCustomer.email"
+					pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
+					required="true" #inemail="ngModel"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label position="floating">Username <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input clearInput type="text" id="username" name="username" [(ngModel)]="newCustomer.username" minlength="4"
+					maxlength="32" required="true" #inusername="ngModel"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input clearInput type="password" id="password" name="password" [(ngModel)]="newCustomer.password"
+					minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label position="floating">Phone Number <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input clearInput type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="newCustomer.phoneNumber"
+					maxlength="11" pattern="[0-9]{8,}" required="true" #inphoneNumber="ngModel">
+				</ion-input>
+			</ion-item>
+
+			<!-- ActionSheet for Better User Interaction -->
+			<ion-item (click)="showGender()">
+				Gender
+				<span class="item_note" slot="end"> {{newCustomer.gender}} </span>
+				<ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+			</ion-item>
+
+			<!-- DateTime picker for Better User Interaction  -->
+			<ion-item>
+				Birthday
+				<span class="item_note" slot="end">
+					<ion-datetime display-format="YYYY-MM-DD" id="birthday" name="birthday"
+						[(ngModel)]="newCustomer.birthday"></ion-datetime>
+				</span>
+				<ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+			</ion-item>
+
+			<ion-item>
+				<ion-label position="floating">Address <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input clearInput type="text" id="address" name="address" [(ngModel)]="newCustomer.address">
+				</ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label position="floating">Country <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input clearInput type="text" id="country" name="country" [(ngModel)]="newCustomer.country">
+				</ion-input>
+			</ion-item>
+
+
+		</ion-list>
+
+		<div class="register_button">
+			<ion-button type="submit" shape="round" fill="outline">Register</ion-button> <br>
+			<ion-button (click)="clear()" shape="round" fill="outline">Clear</ion-button>
+		</div>
+
+
+
+
+
+	</form>
+
+</ion-content>

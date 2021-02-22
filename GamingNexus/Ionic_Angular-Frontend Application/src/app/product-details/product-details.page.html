@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button color="dark"></ion-back-button>
+    </ion-buttons>
+
+    <ion-segment [(ngModel)]="tab" color="danger">
+      <ion-segment-button value="list">
+        <ion-label>Product</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="content">
+        <ion-label>Details</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div [ngSwitch]="tab" class="p_content">
+
+    <div *ngSwitchCase="'list'" class="con_1">
+
+      <div class="p_img">
+        <img [src]="list.headerImage" />
+      </div>
+      <div class="p_info mb10">
+        <div class="p_title">
+          <h2>{{list.name}}</h2>
+          <p>{{list.sub_title}}</p>
+        </div>
+        <div class="p_price mb10">
+          <span class="now_price">Promotion：<span class="price">${{list.price}}</span></span> 　 　Price：<span
+            class="old_price"> ${{list.price}}</span>
+        </div>
+        <br>
+        <ion-label>Average Rating: {{list.averageRating}}</ion-label>
+        <br><br>
+        <ion-label>Release Date: {{list.releaseDate}}</ion-label>
+        <br><br>
+      </div>
+
+
+      <!-- Quantity increase and decrease button for product to be added into shopping cart -->
+      <div class="number">
+        <strong>Quantity adding to cart:
+        </strong>
+        <div class="cart_number">
+          <div class="input_left" (click)="decQuantity()">-</div>
+          <div class="input_center">
+            <input type="text" readonly="readonly" value="1" name="quantity" [(ngModel)]="quantity" />
+          </div>
+          <div class="input_right" (click)="incQuantity()">+</div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Display the detailed description of the product -->
+    <div *ngSwitchCase="'content'" class="con_2">
+
+      <ion-text color="primary">
+        <h2>Product Description</h2>
+      </ion-text>
+      <ion-text color="dark">
+        <p>
+          {{list.description}}
+        </p>
+      </ion-text>
+
+
+    </div>
+
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- Shopping Cart Icon with number items in cart at the top right -->
+    <div class="footer_bar">
+      <div class="carticon" [routerLink]="['/cart']">
+        <ion-icon slot="start" name="cart"></ion-icon>
+        <ion-badge color="danger">{{cartNum}}</ion-badge>
+      </div>
+
+      <div class="addcart" (click)="addCart()">
+        Add to Cart
+      </div>
+    </div>
+
+  </ion-toolbar>
+</ion-footer>

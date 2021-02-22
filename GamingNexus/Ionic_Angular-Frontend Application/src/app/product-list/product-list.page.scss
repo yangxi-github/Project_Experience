@@ -1,0 +1,55 @@
+
+.header{
+    margin-top: 1rem;
+    //padding-top: 1.5rem;
+  }
+
+.list_content{
+
+    ion-list{
+
+        ion-item{
+            ion-label{
+                
+                white-space: normal;
+            }
+        }
+    }
+}
+
+
+
+.sub_toolbar{     
+
+    --min-height:4rem;
+
+    .subheader{
+
+        border-top:1px solid #eee;
+        display: flex;    
+        align-items: center;
+        align-content: center;
+        height:3rem;
+        div{
+    
+            flex: 1;
+            text-align: center;
+        }
+    }
+
+    .active{
+        color:red;
+    }
+
+}
+
+.sub_title{
+    font-size: 2.5rem;
+    color: #2e94d8;
+}
+
+ion-icon {
+    font-size: 15px;
+    color: red;
+    
+  }

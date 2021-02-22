@@ -1,0 +1,104 @@
+<ion-header>
+	<ion-toolbar class="login_toolbar">
+
+		<ion-buttons slot="start">
+
+			<ion-button (click)="goBack()" color="dark">
+				<ion-icon slot="icon-only" name="close"></ion-icon>
+			</ion-button>
+
+		</ion-buttons>
+
+
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<div class="login_logo">
+		<img src="assets/logo.png" />
+	</div>
+
+	<div *ngIf="loginError == true" style="color: red;">
+		{{errorMessage}}
+	</div>
+
+	<form #customerLoginForm="ngForm" (ngSubmit)="customerLogin(customerLoginForm)">
+
+		<div style="color: red;">
+
+			<div *ngIf="inusername.invalid && (inusername.dirty || inusername.touched || submitted)" class="errorText">
+				<div *ngIf="inusername.errors.required">
+					Username is required.
+				</div>
+				<div *ngIf="inusername.errors.minlength">
+					Username must be at least 4 characters long.
+				</div>
+				<div *ngIf="inusername.errors.maxlength">
+					Username cannot exceed 32 characters.
+				</div>
+			</div>
+
+			<div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
+				<div *ngIf="inpassword.errors.required">
+					Password is required.
+				</div>
+				<div *ngIf="inpassword.errors.minlength">
+					Password must be at least 4 characters long.
+				</div>
+				<div *ngIf="inpassword.errors.maxlength">
+					Password cannot exceed 32 characters.
+				</div>
+			</div>
+
+			<div *ngIf="loginErrorMessage" class="errorText">
+				{{loginErrorMessage}}
+			</div>
+
+		</div>
+
+
+
+		<ion-list class="login_list">
+			<ion-item>
+				<ion-input clearInput placeholder="Username" type="text" id="username" name="username"
+					[(ngModel)]="username" minlength="4" maxlength="32" required="true" #inusername="ngModel">
+				</ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-input clearInput placeholder="Password" type="password" id="password" name="password"
+					[(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel">
+				</ion-input>
+			</ion-item>
+
+			<br>
+
+			<ion-item lines="none">
+				<span slot="start">Forgot Password</span>
+
+				<span slot="end" [routerLink]="['/register']">Register</span>
+			</ion-item>
+		</ion-list>
+		<br>
+
+		<ion-button type="submit" size="medium" color="danger" expand="block" class="login_button">
+			Login
+		</ion-button>
+
+	</form>
+
+
+
+</ion-content>
+
+<ion-footer *ngIf="sessionService.getIsLogin() == true">
+
+	<ion-toolbar>
+		<ion-button expand="full" (click)="customerLogout()">
+			<ion-icon slot="start" name="exit"></ion-icon>
+			Logout
+		</ion-button>
+	</ion-toolbar>
+
+</ion-footer>

@@ -1,0 +1,67 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+
+  body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0;
+  }
+  html{
+    font-size: 62.5%;  
+  }
+
+  body{
+
+    font-size: 1.4rem;
+  }
+  .clearfix{  
+    &::after{
+      display: block;
+      content: "";
+      height: 0px;
+      clear: both;
+    }
+  }
+  
+
+  ul,ol{
+    list-style-type: none;
+  }
+
+
+  .price{
+
+    color: red;
+  }
+
+  .message{
+
+    position: relative;
+    .badge{
+  
+      position: absolute;
+  
+      right: -4px;
+      top:-4px;
+      font-size: 1rem;
+  
+    }
+  }
+
+  .login_button{
+
+    display: block;
+
+    width: 80%;
+
+    margin: 0 auto;
+  }

@@ -1,0 +1,49 @@
+<ion-header class="header">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button color="dark"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar placeholder="Gaming Nexus" animated></ion-searchbar>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="doSearch()" color="dark">
+        Search
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+  <!-- Sub-toolbar contains sorting functions -->
+  <ion-toolbar class="sub_toolbar" *ngIf="!flag">
+    <div class="subheader">
+
+      <div (click)="sortProductListByReleaseDate()">Latest</div>
+      <div (click)="sortProductListBySales()">Top Sales</div>
+      <div (click)="sortProductListByPrice()">Price
+        <ion-icon *ngIf="sort == -1" name="caret-up-outline"></ion-icon>
+        <ion-icon *ngIf="sort == 1" name="caret-down-outline"></ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="productList">
+    <ion-card *ngFor="let item of productList" (click)="parentAdvisoryConfirm(item.productId, item.parentAdvisory)">
+      <img [src]="item.headerImage" />
+      <ion-card-header>
+        <ion-card-title>{{item.name}}</ion-card-title>
+        <br>
+        <ion-card-subtitle class="sub_title">${{item.price}}</ion-card-subtitle>
+
+      </ion-card-header>
+
+      <ion-card-content>
+        {{item.description.substring(0,200)}}...
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

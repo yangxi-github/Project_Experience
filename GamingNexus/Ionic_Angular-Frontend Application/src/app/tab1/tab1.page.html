@@ -1,0 +1,37 @@
+<ion-header class="header">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <img src="/assets/qrcode.png" />
+    </ion-buttons>
+    
+    <ion-searchbar placeholder="Gaming Nexus" animated (tap)="goToSearchPage()"></ion-searchbar>
+
+    <ion-buttons slot="end" class="message">
+      <img src="/assets/message.png" />
+
+      <ion-badge color="danger" class="badge">3</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Sliders -->
+  <ion-slides pager="true" #slide1 [options]="slidesOpts" (ionSlideTouchEnd)="slideTouchEnd()">
+    <ion-slide *ngFor="let item of sliderList" (click)="parentAdvisoryConfirm(item.productId, item.parentAdvisory)">
+      <img [src]="item.headerImage" />
+    </ion-slide>
+  </ion-slides>
+
+  <!-- Popular Games Set by the SystemAdmin -->
+  <div class="h_title">
+    Popular Games
+
+    <ion-card *ngFor="let item of popularList" (click)="parentAdvisoryConfirm(item.productId, item.parentAdvisory)">
+      <img [src]="item.headerImage" />
+    </ion-card>
+  </div>
+
+
+</ion-content>

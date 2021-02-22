@@ -1,0 +1,49 @@
+<ion-content>
+
+  <!-- Rendered if Customer has logged in. It will show the username and setting icon at the right side-->
+  <div class="user_top" *ngIf="sessionService.getIsLogin() == true">
+    <div class="user_left">
+      <img src="/assets/user.png">
+    </div>
+    <div class="user_right">
+      <h4>Hello, {{customer.username}}</h4>
+    </div>
+
+    <ion-button fill="clear" color="light" class="settings" [routerLink]="['/customer-setting']">
+      <ion-icon slot="icon-only" name="settings"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Rendered if Customer has not logged in. It will show the login/register icon -->
+  <div class="user_top" *ngIf="sessionService.getIsLogin() == false">
+    <div class="user_left">
+      <img src="/assets/user.png">
+    </div>
+    <div class="user_right">
+      <p [routerLink]="['/login']">Login/Register <ion-icon slot="start" name="arrow-forward"></ion-icon>
+      </p>
+    </div>
+  </div>
+
+
+  <ion-list class="user_list">
+    <ion-item-divider>
+    </ion-item-divider>
+    <ion-item (click)="redirectToViewOrderPage()">
+      <ion-icon name="document-text-outline" slot="start" color="danger"></ion-icon>
+      <span>My Purchases</span>
+    </ion-item>
+
+
+    <ion-item-divider>
+    </ion-item-divider>
+    <ion-item>
+      <ion-icon name="heart-outline" slot="start" color="tertiary"></ion-icon>
+      <span>My Likes</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="people" slot="start" color="secondary"></ion-icon>
+      <span>Customer Service</span>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+
+      <ion-button (tap)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- At first, to check whether Customer is logged in -->
+
+  <div class="order">
+    <ion-label class="subTitle">Address: </ion-label>
+    <div class="address_list">
+
+      <!-- If customer is logged in, ask the customer the type in the delivery address -->
+
+      <ion-list *ngIf="login" lines="none">
+        <ion-input type="text" placeholder="Type your address"></ion-input>
+      </ion-list>
+
+
+      <!-- If customer is logged in, ask the customer the login to perform checkout process -->
+
+      <ion-list *ngIf="!login" lines="none" class="nologin">
+        <ion-item>
+          <ion-label>
+            <p>Please Login in to perform checkout</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <!-- Display the login button to direct the customer to the login page -->
+          <ion-button color="light" [routerLink]="['/login']" [queryParams]="{returnUrl:'/checkout'}">
+            Login
+          </ion-button>
+        </ion-item>
+
+      </ion-list>
+
+
+    </div>
+    <!-- Display the line items the user selected to checkout -->
+
+    <ion-label class="subTitle">List of Products:</ion-label>
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of productList">
+        <ion-thumbnail slot="start">
+          <img [src]="item.product_pic" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{item.product_title}}</h2>
+          <p><span class="price">${{item.product_price}}</span> <span class="count">x{{item.product_quantity}}</span>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+
+    <!-- Customer to choose the payment method -->
+    <ion-radio-group>
+      <ion-label class="subTitle">Payment Method: </ion-label>
+      <ion-item class="item-radio-checked">
+
+        <ion-avatar slot="start">
+          <img src="assets/visa.png">
+        </ion-avatar>
+        <ion-label>Visa</ion-label>
+        <ion-radio slot="end"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="assets/mastercard.png">
+        </ion-avatar>
+        <ion-label>MasterCard</ion-label>
+        <ion-radio slot="end"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="assets/paypal.png">
+        </ion-avatar>
+        <ion-label>PayPal</ion-label>
+        <ion-radio slot="end"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+
+  </div>
+
+</ion-content>
+
+
+<!-- The Order icon at the buttom will only show up if customer is logged in -->
+<ion-footer *ngIf="login">
+  <ion-toolbar>
+    <span slot="start">Total Price: <span class="price"> ${{totalPrice}}</span></span>
+
+    <div class="orderButton" (click)="doOrder()">
+      Order
+    </div>
+
+  </ion-toolbar>
+
+
+</ion-footer>
